@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./client
+    ports: 
+      - 3000:3000
+    depends_on: 
+      - backend
+    container_name: frontend
+  backend:
+    build: ./server
+    ports:
+      - "3001:3001" 
+    depends_on: 
+      - db
+    container_name: backend
+  db:
+    platform: linux/x86_64
+    image: mysql
+    environment:
+      MYSQL_ROOT_USERNAME: root
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: employee
+    ports:
+      - 3306:3306
+    container_name: db
